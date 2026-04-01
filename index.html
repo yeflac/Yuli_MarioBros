@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>¡MI CARTA GALÁCTICA PARA TI! ⭐</title>
+    <style>
+        /* Fuentes Retro y de Lectura Cómoda */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Varela+Round&display=swap');
+
+        :root {
+            --mario-red: #E52521;
+            --luigi-green: #43B047;
+            --star-yellow: #FBD000;
+            --peach-pink: #FFC0CB;
+            --galaxy-dark: #0B0B2A;
+            --scroll-bg: #F8E8C0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            touch-action: manipulation;
+        }
+
+        body {
+            background-color: var(--galaxy-dark);
+            color: #333;
+            font-family: 'Varela Round', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- Fondo Galáctico Pixelado Animado --- */
+        .galaxy-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 40px 70px, #eee, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 150px 100px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 250px 200px, #ddd, rgba(0,0,0,0));
+            background-size: 300px 300px;
+            animation: galaxyScroll 10s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes galaxyScroll {
+            from { background-position: 0 0; }
+            to { background-position: 300px 600px; }
+        }
+
+        /* --- Contenedor Principal (Carta y Personajes) --- */
+        .main-stage {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        /* --- Carta / Pergamino --- */
+        .letter-scroll {
+            background-color: var(--scroll-bg);
+            border: 6px solid #8B4513;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 0 #5D2E0A, 0 15px 20px rgba(0,0,0,0.5);
+            text-align: left;
+            position: relative;
+            animation: floatScroll 4s ease-in-out infinite;
+        }
+
+        /* Título de la Carta */
+        .letter-scroll h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #8B4513;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* Texto de amor (Efecto Typewriter) */
+        .love-text {
+            font-size: 1.05rem;
+            color: #4A2711;
+            line-height: 1.7;
+            min-height: 200px;
+        }
+
+        /* Elementos Decorativos Pixelados en la Carta */
+        .corner-icon {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: flicker 2s infinite;
+        }
+        .icon-tl { top: 10px; left: 10px; }
+        .icon-tr { top: 10px; right: 10px; }
+
+        /* --- NUEVO: Personajes Pixeleados Reales --- */
+        .char-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            position: absolute;
+            top: -60px; /* Elevar para que estén al lado */
+            padding: 0 20px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .pixel-char {
+            width: 60px; /* Ajusta el tamaño según tus sprites */
+            height: auto;
+            filter: drop-shadow(0 4px 0 rgba(0,0,0,0.3));
+        }
+
+        #char-mario {
+            animation: marioJumpReal 0.8s ease-out infinite;
+        }
+
+        #char-peach {
+            animation: peachWaveReal 1.2s ease-in-out infinite;
+        }
+
+        /* --- Botones --- */
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        button {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        #btn-yes {
+            background-color: var(--luigi-green);
+            box-shadow: 0 5px 0 #2a722e, 0 8px 15px rgba(0,0,0,0.3);
+        }
+
+        #btn-yes:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0 #2a722e;
+        }
+
+        /* Botón 'No' Evasivo */
+        #btn-no {
+            background-color: var(--mario-red);
+            box-shadow: 0 5px 0 #9c1714, 0 8px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        /* --- Mensaje de Éxito Potenciado --- */
+        .hidden { display: none !important; }
+
+        #final-stage {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(11, 11, 42, 0.95);
+            z-index: 10;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #final-stage h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: var(--star-yellow);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            animation: popIn 0.5s ease-out forwards;
+        }
+
+        .final-heart {
+            font-size: 5rem;
+            margin: 20px 0;
+            animation: heartBeat 1s infinite;
+        }
+
+        /* --- Animaciones Actualizadas --- */
+        @keyframes floatScroll { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        /* Animaciones para los sprites reales */
+        @keyframes marioJumpReal { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes peachWaveReal { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(5deg); } }
+        @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 80% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+
+        /* Estrellas de confeti */
+        .star-confetti {
+            position: absolute;
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: starFall linear forwards;
+        }
+
+        @keyframes starFall {
+            to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Ajustes para Celular (Media Queries) */
+        @media (max-width: 480px) {
+            .letter-scroll h1 { font-size: 0.9rem; }
+            .love-text { font-size: 0.95rem; }
+            .pixel-char { width: 45px; top: 10px;} /* Personajes más pequeños y reubicados */
+            .char-container { top: -45px;}
+            button { font-size: 0.7rem; padding: 12px 18px; }
+            #final-stage h2 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="galaxy-bg"></div>
+
+    <div class="main-stage" id="main-stage">
+        
+        <div class="char-container">
+            <img src="mario.gif" alt="Mario" class="pixel-char" id="char-mario">
+            <img src="peach.gif" alt="Peach" class="pixel-char" id="char-peach">
+        </div>
+
+        <div class="letter-scroll">
+            <div class="corner-icon icon-tl">⭐</div>
+            <div class="corner-icon icon-tr">🍄</div>
+            
+            <h1>¡MI CARTA GALÁCTICA PARA TI!</h1>
+            
+            <p class="love-text" id="typewriter-text"></p>
+
+            <p style="font-family: 'Press Start 2P', cursive; font-size: 0.8rem; color: #8B4513; text-align: center; margin-top: 20px;">
+                ¿Aceptas tu misión estelar?
+            </p>
+        </div>
+        
+        <div class="buttons" id="btn-container">
+            <button id="btn-yes">¡ACEPTO MI MISIÓN! ⭐</button>
+            <button id="btn-no">Mmm, déjame pensar... 🍄</button>
+        </div>
+    </div>
+
+    <div id="final-stage" class="hidden">
+        <h2>¡YAHOO! ¡SABÍA QUE ACEPTARÍAS!</h2>
+        <p style="color: white; font-size: 1.1rem;">Eres mi Super Estrella. Te amo infinitamente. ❤️</p>
+        <div class="final-heart">💖</div>
+        <p style="color: var(--star-yellow); font-family: 'Press Start 2P', cursive; font-size: 0.8rem;">Prepárate para la aventura.</p>
+    </div>
+
+    <script>
+        // Variables de Texto y Elementos
+        const typewriterText = document.getElementById('typewriter-text');
+        const btnNo = document.getElementById('btn-no');
+        const btnYes = document.getElementById('btn-yes');
+        const mainStage = document.getElementById('main-stage');
+        const finalStage = document.getElementById('final-stage');
+
+        // Texto de amor súper animado (Potenciado)
+        const loveMessage = `Mi amor, mi princesa, eres la única Super Estrella en mi firmamento. Mi mundo es infinitamente mejor desde que eres mi Player Two. No hay Bowser lo suficientemente grande ni galaxia lo suficientemente lejana que me separe de ti. Cada 'up' en mi vida tiene tu nombre. ¿Me harías el honor de acompañarme en una misión especial para ver "Mario Galaxy" en la gran pantalla y ser mi copiloto una vez más?`;
+
+        // --- Lógica del Efecto Máquina de Escribir ---
+        let index = 0;
+        function typeWriter() {
+            if (index < loveMessage.length) {
+                typewriterText.innerHTML += loveMessage.charAt(index);
+                index++;
+                let speed = 40; 
+                if (loveMessage.charAt(index-1) === '.' || loveMessage.charAt(index-1) === '?') speed = 400;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        window.onload = typeWriter;
+
+
+        // --- Lógica del Botón 'No' Evasivo (Potenciada) ---
+        const moveButton = (e) => {
+            if (window.innerWidth < 350) return;
+
+            const padding = 20;
+            const maxX = window.innerWidth - btnNo.offsetWidth - padding;
+            const maxY = window.innerHeight - btnNo.offsetHeight - padding;
+            
+            const randomX = Math.random() * (maxX - padding) + padding;
+            const randomY = Math.random() * (maxY - padding) + padding;
+            
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = `${randomX}px`;
+            btnNo.style.top = `${randomY}px`;
+            btnNo.style.zIndex = '1000';
+        };
+
+        btnNo.addEventListener('mouseover', moveButton);
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault(); 
+            moveButton();
+        });
+
+
+        // --- Lógica del Botón 'Sí' y Gran Final ---
+        btnYes.addEventListener('click', () => {
+            mainStage.classList.add('hidden');
+            finalStage.classList.remove('hidden');
+            createStarCelebration();
+        });
+
+        function createStarCelebration() {
+            const icons = ['⭐', '💖', '✨', '🍄', '💰'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const icon = document.createElement('div');
+                    icon.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+                    icon.className = 'star-confetti';
+                    icon.style.left = `${Math.random() * 100}vw`;
+                    icon.style.top = `-5vh`;
+                    icon.style.fontSize = `${Math.random() * 20 + 15}px`;
+                    
+                    const duration = Math.random() * 2 + 1;
+                    icon.style.animationDuration = `${duration}s`;
+                    
+                    document.body.appendChild(icon);
+                    setTimeout(() => { icon.remove(); }, duration * 1000);
+                }, i * 50);
+            }
+        }
+    </script>
+</body>
+</html>
